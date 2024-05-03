@@ -1,0 +1,1 @@
+{"version":3,"file":"PostRouter.js","sourceRoot":"","sources":["../../src/router/PostRouter.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;AAEA,uCAA2C;AAC3C,iDAAmC;AACnC,qDAAmD;AAE5C,KAAK,UAAU,UAAU;IAC5B,MAAM,cAAc,GAAG,MAAM,kBAAW,CAAC,MAAM,CAAC,uBAAU,CAAC,CAAC;IAC5D,cAAc,CAAC,GAAG,CAAC,OAAO,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,CAAA;AAC3C,CAAC;AAHD,gCAGC"}

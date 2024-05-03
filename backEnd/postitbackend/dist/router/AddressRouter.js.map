@@ -1,0 +1,1 @@
+{"version":3,"file":"AddressRouter.js","sourceRoot":"","sources":["../../src/router/AddressRouter.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;AAEA,uCAA2C;AAC3C,2DAAyD;AACzD,iDAAmC;AAE5B,KAAK,UAAU,aAAa;IAC/B,MAAM,iBAAiB,GAAG,MAAM,kBAAW,CAAC,MAAM,CAAC,6BAAa,CAAC,CAAC;IAClE,iBAAiB,CAAC,GAAG,CAAC,OAAO,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,CAAA;AAC9C,CAAC;AAHD,sCAGC"}

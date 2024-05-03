@@ -1,0 +1,396 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model account {
+  accountId    String @id @db.VarChar(20)
+  username     String @unique(map: "username") @db.VarChar(20)
+  passwords    String @db.VarChar(100)
+  roleId       String @db.VarChar(20)
+  refreshToken String @db.VarChar(1000)
+  role         role   @relation(fields: [roleId], references: [roleId], onDelete: Cascade, onUpdate: NoAction, map: "fk_account_role_id")
+  user         user[]
+
+  @@index([roleId], map: "fk_account_role_id")
+}
+
+model address {
+  addressId    String         @id @db.VarChar(20)
+  street       String         @db.VarChar(100)
+  area         String         @db.VarChar(20)
+  states       String         @db.VarChar(20)
+  postCode     Int
+  user_address user_address[]
+}
+
+model alert {
+  alertId          String       @id @db.VarChar(20)
+  alertTitle       String       @db.VarChar(50)
+  alertDescription String       @db.VarChar(100)
+  alertDate        DateTime     @db.DateTime(0)
+  post_alert       post_alert[]
+  user_alert       user_alert[]
+}
+
+model attachment {
+  attachmentId    String            @id @db.VarChar(20)
+  attachmentUrl   String            @db.VarChar(100)
+  isSaved         Boolean           @db.Bit(1)
+  post_attachment post_attachment[]
+  save_attachment save_attachment[]
+  user_attachment user_attachment[]
+}
+
+model award {
+  awardId    String       @id @db.VarChar(20)
+  awardName  String       @db.VarChar(100)
+  post_award post_award[]
+  user_award user_award[]
+}
+
+model ban {
+  banId          String     @id @db.VarChar(20)
+  banTitle       String     @db.VarChar(50)
+  banDescription String     @db.VarChar(100)
+  banDate        DateTime   @db.DateTime(0)
+  post_ban       post_ban[]
+  user_ban       user_ban[]
+}
+
+model chat_group {
+  groupId          String       @id @db.VarChar(20)
+  groupName        String       @db.VarChar(20)
+  groupDescription String       @db.VarChar(30)
+  user_group       user_group[]
+}
+
+model comment {
+  commentId          String         @id @db.VarChar(20)
+  commentDescription String         @db.VarChar(200)
+  commentDate        DateTime       @db.DateTime(0)
+  post_comment       post_comment[]
+  user_comment       user_comment[]
+}
+
+model interact {
+  interactId    String          @id @db.VarChar(20)
+  isLike        Boolean         @db.Bit(1)
+  isDislike     Boolean         @db.Bit(1)
+  post_interact post_interact[]
+  user_interact user_interact[]
+}
+
+model notification {
+  notificationId      String              @id @db.VarChar(20)
+  notificationTitle   String              @db.VarChar(100)
+  notificationContent String              @db.VarChar(100)
+  notificationDate    DateTime?           @db.DateTime(0)
+  user_notification   user_notification[]
+}
+
+model post {
+  postId          String            @id @db.VarChar(20)
+  postTitle       String            @db.VarChar(50)
+  postDescription String            @db.VarChar(500)
+  postUpdateDate  DateTime          @db.DateTime(0)
+  post_alert      post_alert[]
+  post_attachment post_attachment[]
+  post_award      post_award[]
+  post_ban        post_ban[]
+  post_comment    post_comment[]
+  post_interact   post_interact[]
+  post_save_post  post_save_post[]
+  post_type       post_type[]
+}
+
+model post_alert {
+  id      String @id @db.VarChar(20)
+  postId  String @db.VarChar(20)
+  alertId String @db.VarChar(20)
+  alert   alert  @relation(fields: [alertId], references: [alertId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_alert_alert_id")
+  post    post   @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_alert_post_id")
+
+  @@index([alertId], map: "fk_post_alert_alert_id")
+  @@index([postId], map: "fk_post_alert_post_id")
+}
+
+model post_award {
+  id      String @id @db.VarChar(20)
+  postId  String @db.VarChar(20)
+  awardId String @db.VarChar(20)
+  award   award  @relation(fields: [awardId], references: [awardId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_award_award_id")
+  post    post   @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_award_post_id")
+
+  @@index([awardId], map: "fk_post_award_award_id")
+  @@index([postId], map: "fk_post_award_post_id")
+}
+
+model post_ban {
+  id     String @id @db.VarChar(20)
+  postId String @db.VarChar(20)
+  banId  String @db.VarChar(20)
+  ban    ban    @relation(fields: [banId], references: [banId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_ban_ban_id")
+  post   post   @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_ban_post_id")
+
+  @@index([banId], map: "fk_post_ban_ban_id")
+  @@index([postId], map: "fk_post_ban_post_id")
+}
+
+model post_comment {
+  id        String  @id @db.VarChar(20)
+  postId    String  @db.VarChar(20)
+  commentId String  @db.VarChar(20)
+  comment   comment @relation(fields: [commentId], references: [commentId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_comment_comment_id")
+  post      post    @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_comment_post_id")
+
+  @@index([commentId], map: "fk_post_comment_comment_id")
+  @@index([postId], map: "fk_post_comment_post_id")
+}
+
+model post_interact {
+  id         String   @id @db.VarChar(20)
+  postId     String   @db.VarChar(20)
+  interactId String   @db.VarChar(20)
+  interact   interact @relation(fields: [interactId], references: [interactId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_interact_interact_id")
+  post       post     @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_interact_post_id")
+
+  @@index([interactId], map: "fk_post_interact_interact_id")
+  @@index([postId], map: "fk_post_interact_post_id")
+}
+
+model post_save_post {
+  id         String    @id @db.VarChar(20)
+  postId     String    @db.VarChar(20)
+  savePostId String    @db.VarChar(20)
+  post       post      @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_save_post_post_id")
+  save_post  save_post @relation(fields: [savePostId], references: [savePostId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_save_post_save_post_id")
+
+  @@index([postId], map: "fk_post_save_post_post_id")
+  @@index([savePostId], map: "fk_post_save_post_save_post_id")
+}
+
+model post_type {
+  id     String @id @db.VarChar(20)
+  typeId String @db.VarChar(20)
+  postId String @db.VarChar(20)
+  post   post   @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_type_post_id")
+  type   type   @relation(fields: [typeId], references: [typeId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_type_type_id")
+
+  @@index([postId], map: "fk_post_type_post_id")
+  @@index([typeId], map: "fk_post_type_type_id")
+}
+
+model role {
+  roleId   String    @id @db.VarChar(20)
+  roleName String    @db.VarChar(20)
+  account  account[]
+}
+
+model save_attachment {
+  saveAttachmentId     String                 @id @db.VarChar(20)
+  saveAttachmentDate   DateTime               @db.DateTime(0)
+  attachmentId         String                 @db.VarChar(20)
+  attachment           attachment             @relation(fields: [attachmentId], references: [attachmentId], onDelete: Cascade, onUpdate: NoAction, map: "fk_save_attachment_attachment_id")
+  user_save_attachment user_save_attachment[]
+
+  @@index([attachmentId], map: "fk_save_attachment_attachment_id")
+}
+
+model save_post {
+  savePostId     String           @id @db.VarChar(20)
+  savePostDate   DateTime         @db.DateTime(0)
+  post_save_post post_save_post[]
+  user_save_post user_save_post[]
+}
+
+model subscription {
+  subscriptionId    String              @id @db.VarChar(20)
+  subscriptionDate  DateTime            @db.DateTime(0)
+  user_subscription user_subscription[]
+}
+
+model type {
+  typeId    String      @id @db.VarChar(20)
+  typeName  String      @db.VarChar(100)
+  post_type post_type[]
+}
+
+model user {
+  userId               String                 @id @db.VarChar(20)
+  fullname             String                 @db.VarChar(50)
+  age                  Int
+  email                String                 @unique(map: "email") @db.VarChar(50)
+  images               String                 @db.VarChar(100)
+  accountId            String                 @db.VarChar(20)
+  descriptions         String?                @db.VarChar(200)
+  account              account                @relation(fields: [accountId], references: [accountId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_account_id")
+  user_address         user_address[]
+  user_alert           user_alert[]
+  user_attachment      user_attachment[]
+  user_award           user_award[]
+  user_ban             user_ban[]
+  user_comment         user_comment[]
+  user_group           user_group[]
+  user_interact        user_interact[]
+  user_notification    user_notification[]
+  user_save_attachment user_save_attachment[]
+  user_save_post       user_save_post[]
+  user_subscription    user_subscription[]
+
+  @@index([accountId], map: "fk_user_account_id")
+}
+
+model user_address {
+  userAddressId String  @id @db.VarChar(20)
+  userId        String  @db.VarChar(20)
+  addressId     String  @db.VarChar(20)
+  address       address @relation(fields: [addressId], references: [addressId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_address_address_id")
+  user          user    @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_address_user_id")
+
+  @@index([addressId], map: "fk_user_address_address_id")
+  @@index([userId], map: "fk_user_address_user_id")
+}
+
+model user_alert {
+  id      String @id @db.VarChar(20)
+  userId  String @db.VarChar(20)
+  alertId String @db.VarChar(20)
+  alert   alert  @relation(fields: [alertId], references: [alertId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_alert_alert_id")
+  user    user   @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_alert_user_id")
+
+  @@index([alertId], map: "fk_user_alert_alert_id")
+  @@index([userId], map: "fk_user_alert_user_id")
+}
+
+model user_award {
+  id      String @id @db.VarChar(20)
+  userId  String @db.VarChar(20)
+  awardId String @db.VarChar(20)
+  award   award  @relation(fields: [awardId], references: [awardId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_award_award_id")
+  user    user   @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_award_user_id")
+
+  @@index([awardId], map: "fk_user_award_award_id")
+  @@index([userId], map: "fk_user_award_user_id")
+}
+
+model user_ban {
+  id     String @id @db.VarChar(20)
+  userId String @db.VarChar(20)
+  banId  String @db.VarChar(20)
+  ban    ban    @relation(fields: [banId], references: [banId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_ban_ban_id")
+  user   user   @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_ban_user_id")
+
+  @@index([banId], map: "fk_user_ban_ban_id")
+  @@index([userId], map: "fk_user_ban_user_id")
+}
+
+model user_comment {
+  id        String  @id @db.VarChar(20)
+  userId    String  @db.VarChar(20)
+  commentId String  @db.VarChar(20)
+  comment   comment @relation(fields: [commentId], references: [commentId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_comment_comment_id")
+  user      user    @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_comment_user_id")
+
+  @@index([commentId], map: "fk_user_comment_comment_id")
+  @@index([userId], map: "fk_user_comment_user_id")
+}
+
+model user_group {
+  userGroupId String     @id @db.VarChar(20)
+  userId      String     @db.VarChar(20)
+  groupId     String     @db.VarChar(20)
+  chat_group  chat_group @relation(fields: [groupId], references: [groupId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_group_group_id")
+  user        user       @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_group_user_id")
+
+  @@index([groupId], map: "fk_user_group_group_id")
+  @@index([userId], map: "fk_user_group_user_id")
+}
+
+model user_interact {
+  id         String   @id @db.VarChar(20)
+  userId     String   @db.VarChar(20)
+  interactId String   @db.VarChar(20)
+  interact   interact @relation(fields: [interactId], references: [interactId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_interact_interact_id")
+  user       user     @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_interact_user_id")
+
+  @@index([interactId], map: "fk_user_interact_interact_id")
+  @@index([userId], map: "fk_user_interact_user_id")
+}
+
+model user_notification {
+  id             String       @id @db.VarChar(20)
+  userId         String       @db.VarChar(20)
+  notificationId String       @db.VarChar(20)
+  notification   notification @relation(fields: [notificationId], references: [notificationId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_notification_notification_id")
+  user           user         @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_notification_user_id")
+
+  @@index([notificationId], map: "fk_user_notification_notification_id")
+  @@index([userId], map: "fk_user_notification_user_id")
+}
+
+model user_post {
+  id     String @id @db.VarChar(20)
+  userId String @db.VarChar(20)
+  postId String @db.VarChar(20)
+}
+
+model user_save_attachment {
+  id               String          @id @db.VarChar(20)
+  userId           String          @db.VarChar(20)
+  saveAttachmentId String          @db.VarChar(20)
+  save_attachment  save_attachment @relation(fields: [saveAttachmentId], references: [saveAttachmentId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_save_attachment_save_attachment_id")
+  user             user            @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_save_attachment_user_id")
+
+  @@index([saveAttachmentId], map: "fk_user_save_attachment_save_attachment_id")
+  @@index([userId], map: "fk_user_save_attachment_user_id")
+}
+
+model user_save_post {
+  id         String    @id @db.VarChar(20)
+  userId     String    @db.VarChar(20)
+  savePostId String    @db.VarChar(20)
+  save_post  save_post @relation(fields: [savePostId], references: [savePostId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_save_post_save_post_id")
+  user       user      @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_save_post_user_id")
+
+  @@index([savePostId], map: "fk_user_save_post_save_post_id")
+  @@index([userId], map: "fk_user_save_post_user_id")
+}
+
+model user_subscription {
+  id             String       @id @db.VarChar(20)
+  userId         String       @db.VarChar(20)
+  subscriptionId String       @db.VarChar(20)
+  isNotification Boolean      @db.Bit(1)
+  subscription   subscription @relation(fields: [subscriptionId], references: [subscriptionId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_subscription_subscription_id")
+  user           user         @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_subscription_user_id")
+
+  @@index([subscriptionId], map: "fk_user_subscription_subscription_id")
+  @@index([userId], map: "fk_user_subscription_user_id")
+}
+
+model post_attachment {
+  id           String     @id @db.VarChar(20)
+  postId       String     @db.VarChar(20)
+  attachmentId String     @db.VarChar(20)
+  attachment   attachment @relation(fields: [attachmentId], references: [attachmentId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_attachment_attachment_id")
+  post         post       @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_attachment_user_id")
+
+  @@index([attachmentId], map: "fk_post_attachment_attachment_id")
+  @@index([postId], map: "fk_post_attachment_user_id")
+}
+
+model user_attachment {
+  id           String     @id @db.VarChar(20)
+  userId       String     @db.VarChar(20)
+  attachmentId String     @db.VarChar(20)
+  attachment   attachment @relation(fields: [attachmentId], references: [attachmentId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_attachment_attachment_id")
+  user         user       @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_attachment_user_id")
+
+  @@index([attachmentId], map: "fk_user_attachment_attachment_id")
+  @@index([userId], map: "fk_user_attachment_user_id")
+}

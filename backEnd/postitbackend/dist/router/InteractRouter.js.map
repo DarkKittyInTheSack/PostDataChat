@@ -1,0 +1,1 @@
+{"version":3,"file":"InteractRouter.js","sourceRoot":"","sources":["../../src/router/InteractRouter.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;AAEA,uCAA2C;AAC3C,iDAAmC;AACnC,6DAA2D;AAEpD,KAAK,UAAU,cAAc;IAChC,MAAM,kBAAkB,GAAG,MAAM,kBAAW,CAAC,MAAM,CAAC,+BAAc,CAAC,CAAC;IACpE,kBAAkB,CAAC,GAAG,CAAC,OAAO,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,CAAA;AAC/C,CAAC;AAHD,wCAGC"}

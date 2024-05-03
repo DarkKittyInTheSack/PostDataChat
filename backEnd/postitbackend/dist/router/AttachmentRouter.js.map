@@ -1,0 +1,1 @@
+{"version":3,"file":"AttachmentRouter.js","sourceRoot":"","sources":["../../src/router/AttachmentRouter.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;AAEA,uCAA2C;AAC3C,iDAAmC;AACnC,iEAA+D;AAExD,KAAK,UAAU,gBAAgB;IAClC,MAAM,oBAAoB,GAAG,MAAM,kBAAW,CAAC,MAAM,CAAC,mCAAgB,CAAC,CAAC;IACxE,oBAAoB,CAAC,GAAG,CAAC,OAAO,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,CAAA;AACjD,CAAC;AAHD,4CAGC"}

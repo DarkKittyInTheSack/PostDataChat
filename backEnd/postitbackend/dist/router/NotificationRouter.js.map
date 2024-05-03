@@ -1,0 +1,1 @@
+{"version":3,"file":"NotificationRouter.js","sourceRoot":"","sources":["../../src/router/NotificationRouter.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;AAEA,uCAA2C;AAC3C,iDAAmC;AACnC,qEAAmE;AAE5D,KAAK,UAAU,kBAAkB;IACpC,MAAM,sBAAsB,GAAG,MAAM,kBAAW,CAAC,MAAM,CAAC,uCAAkB,CAAC,CAAC;IAC5E,sBAAsB,CAAC,GAAG,CAAC,OAAO,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,CAAA;AACnD,CAAC;AAHD,gDAGC"}

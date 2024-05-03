@@ -1,0 +1,1 @@
+{"version":3,"file":"BanRouter.js","sourceRoot":"","sources":["../../src/router/BanRouter.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;AAEA,uCAA2C;AAC3C,iDAAmC;AACnC,mDAAiD;AAE1C,KAAK,UAAU,SAAS;IAC3B,MAAM,aAAa,GAAG,MAAM,kBAAW,CAAC,MAAM,CAAC,qBAAS,CAAC,CAAC;IAC1D,aAAa,CAAC,GAAG,CAAC,OAAO,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,CAAA;AAC1C,CAAC;AAHD,8BAGC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"AlertRouter.js","sourceRoot":"","sources":["../../src/router/AlertRouter.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;AAEA,uCAA2C;AAC3C,iDAAmC;AACnC,uDAAqD;AAE9C,KAAK,UAAU,WAAW;IAC7B,MAAM,eAAe,GAAG,MAAM,kBAAW,CAAC,MAAM,CAAC,yBAAW,CAAC,CAAC;IAC9D,eAAe,CAAC,GAAG,CAAC,OAAO,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,CAAA;AAC5C,CAAC;AAHD,kCAGC"}
